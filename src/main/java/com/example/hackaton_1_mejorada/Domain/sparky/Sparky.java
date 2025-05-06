@@ -1,4 +1,4 @@
-package com.example.hackathon.entity;
+package com.example.hackaton_1_mejorada.Domain.sparky;
 
 import jakarta.persistence.*;
 import java.util.List;

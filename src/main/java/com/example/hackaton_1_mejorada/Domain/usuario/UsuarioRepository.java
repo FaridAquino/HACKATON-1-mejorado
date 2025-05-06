@@ -1,4 +1,4 @@
-package com.bitWiseComplexity.bigMeow.Domain.usuario;
+package com.example.hackaton_1_mejorada.Domain.usuario;
 
 import com.bitWiseComplexity.bigMeow.Domain.usuario.*;
 import org.springframework.data.jpa.repository.JpaRepository;

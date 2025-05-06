@@ -1,4 +1,4 @@
-package com.bitWiseComplexity.bigMeow.Domain.solicitud;
+package com.example.hackaton_1_mejorada.Domain.solicitud;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

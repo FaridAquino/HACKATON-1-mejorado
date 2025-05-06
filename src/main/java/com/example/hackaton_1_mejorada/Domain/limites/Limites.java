@@ -1,9 +1,10 @@
-package com.bitWiseComplexity.bigMeow.Domain.limites;
+import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
 
-import com.bitWiseComplexity.bigMeow.Domain.empresa.*;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Limites {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

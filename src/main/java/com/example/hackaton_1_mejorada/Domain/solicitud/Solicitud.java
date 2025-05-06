@@ -1,6 +1,5 @@
-package com.bitWiseComplexity.bigMeow.Domain.solicitud;
+package com.example.hackaton_1_mejorada.Domain.solicitud;
 
-import com.bitWiseComplexity.bigMeow.Domain.usuario.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -51,7 +50,7 @@ public class Solicitud {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Usuario getUsuario() {
+    public com.bitWiseComplexity.bigMeow.Domain.usuario.Usuario getUsuario() {
         return usuario;
     }
 

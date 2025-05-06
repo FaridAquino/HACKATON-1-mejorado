@@ -1,9 +1,11 @@
-package com.bitWiseComplexity.bigMeow.Domain.usuario;
+package com.example.hackaton_1_mejorada.Domain.usuario;
 
-import com.bitWiseComplexity.bigMeow.Domain.empresa.*;
+import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

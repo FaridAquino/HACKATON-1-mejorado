@@ -1,4 +1,4 @@
-package com.bitWiseComplexity.bigMeow.Domain.restricciones;
+package com.example.hackaton_1_mejorada.Domain.restricciones;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

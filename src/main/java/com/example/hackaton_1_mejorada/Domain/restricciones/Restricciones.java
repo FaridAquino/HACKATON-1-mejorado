@@ -1,6 +1,6 @@
-package com.bitWiseComplexity.bigMeow.Domain.restricciones;
+package com.example.hackaton_1_mejorada.Domain.restricciones;
 
-import com.bitWiseComplexity.bigMeow.Domain.empresa.*;
+import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
 import jakarta.persistence.*;
 
 @Entity
