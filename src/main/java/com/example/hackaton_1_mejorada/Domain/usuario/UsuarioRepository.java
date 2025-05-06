@@ -1,6 +1,5 @@
 package com.example.hackaton_1_mejorada.Domain.usuario;
 
-import com.example.hackaton_1_mejorada.Domain.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

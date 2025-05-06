@@ -1,7 +1,6 @@
 package com.example.hackaton_1_mejorada.Domain.usuario;
 
-import com.bitWiseComplexity.bigMeow.Domain.limite.Limite;
-import com.bitWiseComplexity.bigMeow.Domain.limite.dto.LimiteRequestDTO;
+import com.example.hackaton_1_mejorada.Domain.limites.Limites;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,10 +47,10 @@ public class UsuarioController {
 
     // 5. Asignar límite a un usuario (POST)
     @PostMapping("/{id}/limits")
-    public ResponseEntity<Limite> asignarLimite(
+    public ResponseEntity<Limites> asignarLimite(
             @PathVariable Long id,
             @RequestBody LimiteRequestDTO limiteRequest) {
-        Limite limite = usuarioService.asignarLimite(id, limiteRequest);
+        Limites limite = usuarioService.asignarLimite(id, limiteRequest);
         return ResponseEntity.ok(limite);
     }
 

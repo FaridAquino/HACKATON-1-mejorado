@@ -1,35 +1,28 @@
 package com.example.hackaton_1_mejorada.Domain.usuario;
 
-
+import com.example.hackaton_1_mejorada.Domain.Empresa.EmpresaRepository;
 import com.example.hackaton_1_mejorada.Domain.limites.Limites;
-import com.example.hackaton_1_mejorada.Domain.limites.dto.LimiteRequestDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import com.example.hackaton_1_mejorada.Domain.limites.LimitesRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@RequiredArgsConstructor
 public class UsuarioService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private EmpresaRepository empresaRepository;
+    private final EmpresaRepository empresaRepository;
 
-    @Autowired
-    private LimiteRepository limiteRepository;
+    private final LimitesRepository limiteRepository;
 
     // 1. Crear usuario
     public Usuario crearUsuario(Usuario usuario) {
-        // Validar que la empresa exista
-        Empresa empresa = empresaRepository.findById(usuario.getEmpresa().getId())
-                .orElseThrow(() -> new NoSuchElementException("Empresa no encontrada"));
-        usuario.setEmpresa(empresa);
         return usuarioRepository.save(usuario);
     }
 
@@ -54,9 +47,9 @@ public class UsuarioService {
     }
 
     // 5. Asignar límite a usuario
-    public Limite asignarLimite(Long usuarioId, LimiteRequestDTO limiteRequest) {
+    public Limites asignarLimite(Long usuarioId, LimiteRequestDTO limiteRequest) {
         Usuario usuario = obtenerUsuarioPorId(usuarioId);
-        Limite limite = new Limite();
+        Limites limite = new Limites();
         limite.setTipoModelo(limiteRequest.getTipoModelo());
         limite.setLimiteSolicitudes(limiteRequest.getLimiteSolicitudes());
         limite.setLimiteTokens(limiteRequest.getLimiteTokens());

@@ -1,9 +1,13 @@
 package com.example.hackaton_1_mejorada.Domain.solicitud;
 
+import com.example.hackaton_1_mejorada.Domain.usuario.Usuario;
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Data
 public class Solicitud {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,44 +21,4 @@ public class Solicitud {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public com.bitWiseComplexity.bigMeow.Domain.usuario.Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 }
