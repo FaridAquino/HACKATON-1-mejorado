@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "dependencies": {
+    "express": "latest",
+    "@azure-rest/ai-inference": "latest",
+    "@azure/core-auth": "latest",
+    "dotenv": "latest"
+  }
+}
+
