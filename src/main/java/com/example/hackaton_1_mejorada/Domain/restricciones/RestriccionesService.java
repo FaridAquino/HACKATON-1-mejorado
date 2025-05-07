@@ -38,6 +38,8 @@ public class RestriccionesService {
     }
 
     public void delete(Long id) {
-        restriccionesRepository.deleteById(id);
+        if (restriccionesRepository.findById(id).isPresent()){
+            restriccionesRepository.deleteById(id);
+        }
     }
 }
