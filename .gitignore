@@ -36,5 +36,5 @@ build/
 /environment/
 
 # Ignorar cualquier archivo .env o similar que contenga configuraciones sensibles
-*.env
+.env
 
