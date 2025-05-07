@@ -65,8 +65,9 @@ public class UsuarioService {
 
     // 6. Generar reporte de consumo (simplificado)
     public String generarReporteConsumo(Long usuarioId) {
-        // Lógica para calcular consumo (ej: tokens usados, solicitudes realizadas)
-        return "Reporte de consumo para usuario ID: " + usuarioId +
-                " (ejemplo: 100 tokens usados en los últimos 7 días)";
+
+        Usuario usuario=usuarioRepository.findById(usuarioId).orElseThrow(()->new RuntimeException("Usuario no encontrado"));
+        String texto="El usuario consumió: "+usuario.getTokensconsumidos()+ "tokens";
+        return texto;
     }
 }

@@ -20,6 +20,8 @@ public class Usuario {
     private String correo;
     private String rol; // Ejemplo: ADMIN, USER, etc.
 
+    private Integer tokensconsumidos=0;
+
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     @JsonBackReference
