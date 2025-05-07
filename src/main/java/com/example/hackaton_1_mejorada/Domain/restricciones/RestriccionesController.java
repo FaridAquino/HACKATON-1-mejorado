@@ -1,32 +1,36 @@
 package com.example.hackaton_1_mejorada.Domain.restricciones;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/restricciones")
+@RequestMapping("/api/company/restrictions")
+@RequiredArgsConstructor
 public class RestriccionesController {
     private final RestriccionesService restriccionesService;
 
-    @Autowired
-    public RestriccionesController(RestriccionesService restriccionesService) {
-        this.restriccionesService = restriccionesService;
-    }
-
     @GetMapping
-    public List<Restricciones> getAllRestricciones() {
-        return restriccionesService.findAll();
+    public ResponseEntity<List<Restricciones>> getAllRestricciones() {
+        List<Restricciones> restricciones=restriccionesService.findAll();
+        return new ResponseEntity<>(restricciones, HttpStatus.OK);
     }
 
     @PostMapping
-    public Restricciones createRestricciones(@RequestBody Restricciones restricciones) {
-        return restriccionesService.save(restricciones);
+    public ResponseEntity<Restricciones> createRestricciones(@RequestBody Restricciones restricciones, @RequestParam Long id) {
+        Restricciones restricciones1=restriccionesService.save(restricciones,id);
+        return new ResponseEntity<>(restricciones1,HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRestricciones(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteRestricciones(@PathVariable Long id) {
+
         restriccionesService.delete(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

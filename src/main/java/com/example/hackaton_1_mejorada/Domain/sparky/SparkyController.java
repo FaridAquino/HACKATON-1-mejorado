@@ -1,7 +1,5 @@
 package com.example.hackaton_1_mejorada.Domain.sparky;
 
-import com.example.hackathon.entity.Sparky;
-import com.example.hackathon.service.SparkyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +17,13 @@ public class SparkyController {
 
     @GetMapping
     public List<Sparky> getAllSparkies() {
+
         return sparkyService.findAll();
     }
 
     @PostMapping
     public Sparky createSparky(@RequestBody Sparky sparky) {
+
         return sparkyService.save(sparky);
     }
 

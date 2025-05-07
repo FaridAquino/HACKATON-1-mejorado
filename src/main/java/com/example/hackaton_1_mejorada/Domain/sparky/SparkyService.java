@@ -1,7 +1,5 @@
 package com.example.hackaton_1_mejorada.Domain.sparky;
 
-import com.example.hackathon.entity.Sparky;
-import com.example.hackathon.repository.SparkyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
