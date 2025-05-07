@@ -2,6 +2,7 @@ package com.example.hackaton_1_mejorada.Domain.limites;
 
 import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
 
+import com.example.hackaton_1_mejorada.Domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,5 +20,9 @@ public class Limites {
     @ManyToOne
     @JoinColumn(name = "empresa_id")
     private Empresa empresa;
+
+    @ManyToOne
+    @JoinColumn(name="usuario_id")
+    private Usuario usuario;
 
 }

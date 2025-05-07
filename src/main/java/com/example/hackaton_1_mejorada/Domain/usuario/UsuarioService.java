@@ -17,8 +17,6 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
-    private final EmpresaRepository empresaRepository;
-
     private final LimitesRepository limiteRepository;
 
     // 1. Crear usuario
@@ -39,7 +37,8 @@ public class UsuarioService {
 
     // 4. Actualizar usuario
     public Usuario actualizarUsuario(Long id, Usuario usuarioActualizado) {
-        Usuario usuario = obtenerUsuarioPorId(id);
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
         usuario.setNombre(usuarioActualizado.getNombre());
         usuario.setCorreo(usuarioActualizado.getCorreo());
         usuario.setRol(usuarioActualizado.getRol());
@@ -47,12 +46,10 @@ public class UsuarioService {
     }
 
     // 5. Asignar límite a usuario
-    public Limites asignarLimite(Long usuarioId, LimiteRequestDTO limiteRequest) {
-        Usuario usuario = obtenerUsuarioPorId(usuarioId);
-        Limites limite = new Limites();
-        limite.setTipoModelo(limiteRequest.getTipoModelo());
-        limite.setLimiteSolicitudes(limiteRequest.getLimiteSolicitudes());
-        limite.setLimiteTokens(limiteRequest.getLimiteTokens());
+    public Limites asignarLimite(Long usuarioId, Long id_limite) {
+        Usuario usuario = usuarioRepository.findById(id_limite)
+                .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
+        Limites limite = limiteRepository.findById(id_limite).orElseThrow(()->new RuntimeException("No se encontro el limite"));
         limite.setUsuario(usuario);
         return limiteRepository.save(limite);
     }

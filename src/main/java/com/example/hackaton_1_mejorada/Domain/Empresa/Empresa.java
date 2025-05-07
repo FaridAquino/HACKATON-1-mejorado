@@ -1,6 +1,7 @@
 package com.example.hackaton_1_mejorada.Domain.Empresa;
 
 import com.example.hackaton_1_mejorada.Domain.restricciones.Restricciones;
+import com.example.hackaton_1_mejorada.Domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -27,5 +28,8 @@ public class Empresa {
 
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Restricciones> restricciones;
+
+    @OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Usuario> usuarios;
 
 }

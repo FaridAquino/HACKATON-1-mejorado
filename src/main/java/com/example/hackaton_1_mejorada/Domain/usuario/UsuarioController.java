@@ -49,8 +49,8 @@ public class UsuarioController {
     @PostMapping("/{id}/limits")
     public ResponseEntity<Limites> asignarLimite(
             @PathVariable Long id,
-            @RequestBody LimiteRequestDTO limiteRequest) {
-        Limites limite = usuarioService.asignarLimite(id, limiteRequest);
+            @RequestParam Long id_limite) {
+        Limites limite = usuarioService.asignarLimite(id, id_limite);
         return ResponseEntity.ok(limite);
     }
 
