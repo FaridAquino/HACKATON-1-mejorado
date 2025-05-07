@@ -1,7 +1,6 @@
 package com.example.hackaton_1_mejorada.Domain.limites;
 
 import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
-
 import com.example.hackaton_1_mejorada.Domain.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -15,8 +14,10 @@ public class Limites {
     private Long id;
 
     private String descripcion;
-    private double valorMaximo;
-    private double valorMinimo;
+    private Integer TokenSobrantes=5;
+
+    @Enumerated(EnumType.STRING)
+    private LimitesModelo modelo;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
@@ -26,5 +27,6 @@ public class Limites {
     @JsonBackReference
     @JoinColumn(name="usuario_id")
     private Usuario usuario;
+
 
 }

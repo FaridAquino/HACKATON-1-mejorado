@@ -14,15 +14,13 @@ public class ResetLimitesService {
 
     private final LimitesRepository limitesRepository;
 
-
-    @Scheduled(fixedRate = 3600000) // Cada 1 hora
+    @Scheduled(fixedRate = 180000) // Cada 3 minutos
     public void resetearLimites() {
         List<Limites> limites = limitesRepository.findAll();
         for (Limites limite : limites) {
-            limite.setValorMaximo(100.0); // Valor inicial deseado
-            limite.setValorMinimo(10.0);
+            limite.setTokenSobrantes(5); // Valor inicial deseado
         }
         limitesRepository.saveAll(limites);
-        System.out.println("Se reiniciaron los valores de límites");
+        System.out.println("Se reiniciaron los tokens de los usuarios a 5");
     }
 }

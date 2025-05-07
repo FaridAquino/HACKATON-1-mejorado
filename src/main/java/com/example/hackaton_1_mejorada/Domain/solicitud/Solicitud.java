@@ -16,9 +16,16 @@ public class Solicitud {
     private String descripcion;
     private String estado; // Ejemplo: PENDIENTE, APROBADA, RECHAZADA
     private LocalDateTime fechaCreacion;
+    private String modelo_usado;
+
+    private Integer tokens_consumidos=0;
+
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+
+
 
 }

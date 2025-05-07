@@ -29,5 +29,4 @@ public class Usuario {
     @JsonManagedReference
     private List<Limites> limites;
 
-
 }

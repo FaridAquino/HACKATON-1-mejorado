@@ -51,6 +51,17 @@ public class EmpresaService {
         return empresaRepository.save(empresaExistente);
     }
 
+    public String obtenerGastos(Long id){
+        Empresa empresaExistente = empresaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empresa no encontrada"));
+
+        String texto="La empresa ah gastado: "+empresaExistente.getGastado() +" soles";
+
+        return texto;
+    }
+
+
+
 
 
 }

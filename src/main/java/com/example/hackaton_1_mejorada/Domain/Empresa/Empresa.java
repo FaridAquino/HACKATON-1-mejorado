@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,13 +30,15 @@ public class Empresa {
 
     private String  name_administrador;
 
+    private Integer gastado=100;
+
     @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Restricciones> restricciones;
+    private List<Restricciones> restricciones =new ArrayList<>();
 
     @OneToMany(mappedBy = "empresa",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Usuario> usuarios;
+    private List<Usuario> usuarios =new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "sparky_id")

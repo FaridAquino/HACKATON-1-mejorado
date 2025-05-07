@@ -44,5 +44,11 @@ public class EmpresaController {
         return new ResponseEntity<>(empresa,HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/consumption")
+    public ResponseEntity<String> getConsumo(@PathVariable Long id){
+        String texto=empresaService.obtenerGastos(id);
+        return new ResponseEntity<>(texto,HttpStatus.OK);
+    }
+
 
 }
