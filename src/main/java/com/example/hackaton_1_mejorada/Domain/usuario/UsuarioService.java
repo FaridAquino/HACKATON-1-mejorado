@@ -1,5 +1,6 @@
 package com.example.hackaton_1_mejorada.Domain.usuario;
 
+import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
 import com.example.hackaton_1_mejorada.Domain.Empresa.EmpresaRepository;
 import com.example.hackaton_1_mejorada.Domain.limites.Limites;
 import com.example.hackaton_1_mejorada.Domain.limites.LimitesRepository;
@@ -16,12 +17,16 @@ import java.util.NoSuchElementException;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final EmpresaRepository empresaRepository;
 
     private final LimitesRepository limiteRepository;
 
     // 1. Crear usuario
-    public Usuario crearUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public Usuario crearUsuario(Usuario usuario, Long id_empresa) {
+        Empresa empresa= empresaRepository.findById(id_empresa).orElseThrow(()->new RuntimeException("Empresa no encontrada"));
+        Usuario usuario1=usuarioRepository.save(usuario);
+        usuario1.setEmpresa(empresa);
+        return usuarioRepository.save(usuario1);
     }
 
     // 2. Listar usuarios por empresa
@@ -46,11 +51,15 @@ public class UsuarioService {
     }
 
     // 5. Asignar límite a usuario
-    public Limites asignarLimite(Long usuarioId, Long id_limite) {
-        Usuario usuario = usuarioRepository.findById(id_limite)
+    public Limites asignarLimite(Long usuarioId, Limites limites) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
-        Limites limite = limiteRepository.findById(id_limite).orElseThrow(()->new RuntimeException("No se encontro el limite"));
+
+
+        Limites limite = limiteRepository.save(limites);
+
         limite.setUsuario(usuario);
+
         return limiteRepository.save(limite);
     }
 

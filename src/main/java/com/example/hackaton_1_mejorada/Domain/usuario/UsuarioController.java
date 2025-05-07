@@ -16,16 +16,15 @@ public class UsuarioController {
 
     // 1. Crear usuario para una empresa (POST)
     @PostMapping
-    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
-        Usuario nuevoUsuario = usuarioService.crearUsuario(usuario);
+    public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario, @RequestParam Long id) {
+        Usuario nuevoUsuario = usuarioService.crearUsuario(usuario, id);
         return ResponseEntity.ok(nuevoUsuario);
     }
 
     // 2. Listar todos los usuarios de una empresa (GET)
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuariosPorEmpresa(
-            @RequestParam Long empresaId) {
-        List<Usuario> usuarios = usuarioService.listarUsuariosPorEmpresa(empresaId);
+    public ResponseEntity<List<Usuario>> listarUsuariosPorEmpresa(@RequestParam Long id) {
+        List<Usuario> usuarios = usuarioService.listarUsuariosPorEmpresa(id);
         return ResponseEntity.ok(usuarios);
     }
 
@@ -47,10 +46,8 @@ public class UsuarioController {
 
     // 5. Asignar límite a un usuario (POST)
     @PostMapping("/{id}/limits")
-    public ResponseEntity<Limites> asignarLimite(
-            @PathVariable Long id,
-            @RequestParam Long id_limite) {
-        Limites limite = usuarioService.asignarLimite(id, id_limite);
+    public ResponseEntity<Limites> asignarLimite(@PathVariable Long id, @RequestBody Limites limites) {
+        Limites limite = usuarioService.asignarLimite(id, limites);
         return ResponseEntity.ok(limite);
     }
 

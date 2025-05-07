@@ -14,12 +14,13 @@ public class RestriccionesService {
     private final RestriccionesRepository restriccionesRepository;
     private final EmpresaRepository empresaRepository;
 
-    public List<Restricciones> findAll() {
-        return restriccionesRepository.findAll();
+    public List<Restricciones> findRestricciones(Long id) {
+        Empresa empresa=empresaRepository.findById(id).orElseThrow(()->new RuntimeException("Empresa no encontrada"));
+        return empresa.getRestricciones();
     }
 
-    public Restricciones save(Restricciones restricciones, Long id) {
-        Empresa empresa=empresaRepository.findById(id).orElseThrow(()->new RuntimeException("Empresa no encontrada"));
+    public Restricciones save(Restricciones restricciones, Long id_empresa) {
+        Empresa empresa=empresaRepository.findById(id_empresa).orElseThrow(()->new RuntimeException("Empresa no encontrada"));
         Restricciones restricciones1=restriccionesRepository.save(restricciones);
 
         restricciones1.setEmpresa(empresa);

@@ -2,6 +2,8 @@ package com.example.hackaton_1_mejorada.Domain.usuario;
 
 import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
 import com.example.hackaton_1_mejorada.Domain.limites.Limites;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,9 +22,11 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
+    @JsonBackReference
     private Empresa empresa;
 
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Limites> limites;
 
 

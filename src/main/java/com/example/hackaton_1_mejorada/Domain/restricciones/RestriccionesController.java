@@ -15,16 +15,23 @@ public class RestriccionesController {
     private final RestriccionesService restriccionesService;
 
     @GetMapping
-    public ResponseEntity<List<Restricciones>> getAllRestricciones() {
-        List<Restricciones> restricciones=restriccionesService.findAll();
+    public ResponseEntity<List<Restricciones>> getAllRestricciones(@RequestParam Long id) {
+        List<Restricciones> restricciones=restriccionesService.findRestricciones(id);
         return new ResponseEntity<>(restricciones, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Restricciones> createRestricciones(@RequestBody Restricciones restricciones, @RequestParam Long id) {
-        Restricciones restricciones1=restriccionesService.save(restricciones,id);
+    public ResponseEntity<Restricciones> createRestricciones(@RequestBody Restricciones restricciones, @RequestParam Long id_empresa) {
+        Restricciones restricciones1=restriccionesService.save(restricciones,id_empresa);
         return new ResponseEntity<>(restricciones1,HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Restricciones> actualizarRestriccion(@PathVariable Long id, @RequestBody Restricciones restricciones){
+        Restricciones restricciones1=restriccionesService.actualizar(id, restricciones);
+        return new ResponseEntity<>(restricciones1,HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRestricciones(@PathVariable Long id) {

@@ -1,6 +1,7 @@
 package com.example.hackaton_1_mejorada.Domain.restricciones;
 
 import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,6 @@ public class Restricciones {
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
+    @JsonBackReference
     private Empresa empresa;
-
 }
