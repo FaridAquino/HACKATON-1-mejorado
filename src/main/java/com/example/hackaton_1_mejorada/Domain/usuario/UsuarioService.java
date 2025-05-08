@@ -6,7 +6,6 @@ import com.example.hackaton_1_mejorada.Domain.limites.Limites;
 import com.example.hackaton_1_mejorada.Domain.limites.LimitesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -55,19 +54,16 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new NoSuchElementException("Usuario no encontrado"));
 
+        limites.setUsuario(usuario);
 
-        Limites limite = limiteRepository.save(limites);
-
-        limite.setUsuario(usuario);
-
-        return limiteRepository.save(limite);
+        return limiteRepository.save(limites);
     }
 
     // 6. Generar reporte de consumo (simplificado)
     public String generarReporteConsumo(Long usuarioId) {
 
         Usuario usuario=usuarioRepository.findById(usuarioId).orElseThrow(()->new RuntimeException("Usuario no encontrado"));
-        String texto="El usuario consumió: "+usuario.getTokensconsumidos()+ "tokens";
+        String texto="El usuario consumió: "+usuario.getTokens_consumidos_en_total()+ "tokens";
         return texto;
     }
 }

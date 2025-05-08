@@ -1,10 +1,9 @@
 package com.example.hackaton_1_mejorada.AI.DeepSeek;
 
+import com.example.hackaton_1_mejorada.Domain.DTO.requestSolicitudDTO;
+import com.example.hackaton_1_mejorada.Domain.solicitud.Solicitud;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/chat/deep")
@@ -18,7 +17,7 @@ public class DeepSeekChatController {
     }
 
     @PostMapping
-    public String prompt(@RequestBody String prompt) {
-        return chatService.chat(prompt);
+    public Solicitud prompt(@RequestBody requestSolicitudDTO solicitudDTO, @RequestParam Long id) {
+        return chatService.chat(solicitudDTO,id);
     }
 }

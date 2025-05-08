@@ -1,10 +1,10 @@
 package com.example.hackaton_1_mejorada.Domain.solicitud;
 
 import com.example.hackaton_1_mejorada.Domain.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -13,19 +13,25 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String descripcion;
-    private String estado; // Ejemplo: PENDIENTE, APROBADA, RECHAZADA
-    private LocalDateTime fechaCreacion;
-    private String modelo_usado;
+    @Column(columnDefinition = "TEXT")
+    private String consulta;
 
-    private Integer tokens_consumidos=0;
+    @Column(columnDefinition = "TEXT")
+    private String respuesta;
+
+    @Enumerated(EnumType.STRING)
+    private solicitudEstado respuesta_estado; // Ejemplo: APROBADA, RECHAZADA
+
+    @Enumerated(EnumType.STRING)
+    private solicitudModelo modelo_usado;
+
+    private Integer tokens_necesarios=1;
 
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-
+    @JoinColumn(name = "consultante_id")
+    @JsonBackReference
+    private Usuario consultante;
 
 
 }

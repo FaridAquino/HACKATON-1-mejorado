@@ -2,11 +2,13 @@ package com.example.hackaton_1_mejorada.Domain.usuario;
 
 import com.example.hackaton_1_mejorada.Domain.Empresa.Empresa;
 import com.example.hackaton_1_mejorada.Domain.limites.Limites;
+import com.example.hackaton_1_mejorada.Domain.solicitud.Solicitud;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +22,7 @@ public class Usuario {
     private String correo;
     private String rol; // Ejemplo: ADMIN, USER, etc.
 
-    private Integer tokensconsumidos=0;
+    private Integer tokens_consumidos_en_total=0;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id")
@@ -29,6 +31,10 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Limites> limites;
+    private List<Limites> limites=new ArrayList<>();
+
+    @OneToMany(mappedBy = "consultante",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Solicitud> solicitudes=new ArrayList<>();
 
 }
