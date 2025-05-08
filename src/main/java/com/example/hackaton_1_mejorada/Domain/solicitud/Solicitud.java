@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Entity
 @Data
 public class Solicitud {
@@ -23,15 +22,13 @@ public class Solicitud {
     private solicitudEstado respuesta_estado; // Ejemplo: APROBADA, RECHAZADA
 
     @Enumerated(EnumType.STRING)
-    private solicitudModelo modelo_usado;
+    private solicitudModelo modelo_usado; // Almacena el modelo usado (GPT, DeepSeek, Llama)
 
-    private Integer tokens_necesarios=1;
-
+    private Integer tokens_necesarios = 1; // Número de tokens necesarios para la consulta
 
     @ManyToOne
     @JoinColumn(name = "consultante_id")
     @JsonBackReference
     private Usuario consultante;
-
 
 }

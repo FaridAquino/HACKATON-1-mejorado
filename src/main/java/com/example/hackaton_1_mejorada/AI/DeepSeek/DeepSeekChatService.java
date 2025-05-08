@@ -13,6 +13,7 @@ import com.example.hackaton_1_mejorada.Domain.solicitud.solicitudEstado;
 import com.example.hackaton_1_mejorada.Domain.usuario.Usuario;
 import com.example.hackaton_1_mejorada.Domain.usuario.UsuarioRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,9 +22,7 @@ import java.util.List;
 public class DeepSeekChatService {
 
     private final ChatCompletionsClient client;
-
     private final UsuarioRepository usuarioRepository;
-
     private final SolicitudRepository solicitudRepository;
 
     public DeepSeekChatService(UsuarioRepository usuarioRepository, SolicitudRepository solicitudRepository) {
@@ -38,52 +37,54 @@ public class DeepSeekChatService {
                 .buildClient();
     }
 
+    @Transactional
     public Solicitud chat(requestSolicitudDTO solicitudDTO, Long id) {
-        Usuario usuario=usuarioRepository.findById(id).orElseThrow(()->new RuntimeException("Usuario no encontrado"));
-        Solicitud solicitud=new Solicitud();
+        // Obtener usuario desde repositorio
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        //Se agrega la solicitud
+        // Construir solicitud sin persistir aún
+        Solicitud solicitud = new Solicitud();
+        solicitud.setNombrePeticion(solicitudDTO.getNombrePeticion());
         solicitud.setConsulta(solicitudDTO.getConsulta());
         solicitud.setConsultante(usuario);
 
-        solicitudRepository.save(solicitud);
-
-        List<Limites> limites=usuario.getLimites();
-
-        for (Limites limite : limites) {
-            if (limite.getModelo()== LimitesModelo.DEEPSEEK && limite.getTokenSobrantes()==0){
-                solicitud.setRespuesta_estado(solicitudEstado.RECHAZADA);
-                solicitud.setRespuesta("No puedes acceder al modelo de DeepSeek porque no tienes tokens");
-                return solicitudRepository.save(solicitud);
-            }
-
-            if (limite.getModelo() == LimitesModelo.DEEPSEEK){
-                limite.setTokenSobrantes(limite.getTokenSobrantes()-solicitud.getTokens_necesarios());
+        // Validar y actualizar límites antes del completado
+        for (Limites limite : usuario.getLimites()) {
+            if (limite.getModelo() == LimitesModelo.DEEPSEEK) {
+                if (limite.getTokenSobrantes() <= 0) {
+                    solicitud.setRespuesta_estado(solicitudEstado.RECHAZADA);
+                    solicitud.setRespuesta("No puedes acceder al modelo de DeepSeek porque no tienes tokens");
+                    return solicitudRepository.save(solicitud);
+                }
+                limite.setTokenSobrantes(limite.getTokenSobrantes() - solicitud.getTokens_necesarios());
             }
         }
 
-        usuarioRepository.save(usuario);
-
-
+        // Instrucción de sistema para filtrar solo completados de texto
         List<ChatRequestMessage> messages = Arrays.asList(
-                new ChatRequestSystemMessage("You are a helpful assistant."),
+                new ChatRequestSystemMessage(
+                        "Eres un servicio de completado de texto. Únicamente debes aceptar solicitudes que impliquen continuar o finalizar un texto dado. " +
+                                "Si la petición del usuario NO es un completado de texto, responde exactamente: 'Error: solo se aceptan solicitudes de completado de texto'."
+                ),
                 new ChatRequestUserMessage(solicitud.getConsulta())
         );
 
+        // Llamada al modelo DeepSeek
         ChatCompletionsOptions options = new ChatCompletionsOptions(messages);
-        String model = "deepseek/DeepSeek-V3-0324";
-        options.setModel(model);
-
+        options.setModel("deepseek/DeepSeek-V3-0324");
         ChatCompletions completions = client.complete(options);
+
+        // Procesar respuesta
         if (completions.getChoices() != null && !completions.getChoices().isEmpty()) {
             solicitud.setRespuesta_estado(solicitudEstado.APROBADA);
             solicitud.setRespuesta(completions.getChoices().get(0).getMessage().getContent());
-
-            return solicitudRepository.save(solicitud);
         } else {
             solicitud.setRespuesta_estado(solicitudEstado.RECHAZADA);
             solicitud.setRespuesta("Error, no se pudo responder la consulta con DeepSeek");
-            return solicitudRepository.save(solicitud);
         }
+
+        // Persistir solicitud con todos los datos finales
+        return solicitudRepository.save(solicitud);
     }
 }

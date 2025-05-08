@@ -25,4 +25,9 @@ public class SolicitudService {
     public void delete(Long id) {
         solicitudRepository.deleteById(id);
     }
+
+    // Obtener historial de solicitudes de un usuario por su ID
+    public List<Solicitud> findByUserId(Long userId) {
+        return solicitudRepository.findByConsultanteId(userId);
+    }
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/chat/gpt")
+@RequestMapping("/api/ai/chat")
 public class OpenAIChatController {
 
     private final OpenAIChatService chatService;
@@ -18,6 +18,6 @@ public class OpenAIChatController {
 
     @PostMapping
     public Solicitud prompt(@RequestBody requestSolicitudDTO solicitudDTO, @RequestParam Long id) {
-        return chatService.chat(solicitudDTO,id);
+        return chatService.chat(solicitudDTO, id);
     }
 }
