@@ -43,13 +43,10 @@ public class DeepSeekChatService {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Construir solicitud sin persistir aún
         Solicitud solicitud = new Solicitud();
-        solicitud.setNombrePeticion(solicitudDTO.getNombrePeticion());
         solicitud.setConsulta(solicitudDTO.getConsulta());
         solicitud.setConsultante(usuario);
 
-        // Validar y actualizar límites antes del completado
         for (Limites limite : usuario.getLimites()) {
             if (limite.getModelo() == LimitesModelo.DEEPSEEK) {
                 if (limite.getTokenSobrantes() <= 0) {
@@ -61,7 +58,6 @@ public class DeepSeekChatService {
             }
         }
 
-        // Instrucción de sistema para filtrar solo completados de texto
         List<ChatRequestMessage> messages = Arrays.asList(
                 new ChatRequestSystemMessage(
                         "Eres un servicio de completado de texto. Únicamente debes aceptar solicitudes que impliquen continuar o finalizar un texto dado. " +
@@ -70,7 +66,6 @@ public class DeepSeekChatService {
                 new ChatRequestUserMessage(solicitud.getConsulta())
         );
 
-        // Llamada al modelo DeepSeek
         ChatCompletionsOptions options = new ChatCompletionsOptions(messages);
         options.setModel("deepseek/DeepSeek-V3-0324");
         ChatCompletions completions = client.complete(options);

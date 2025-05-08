@@ -10,6 +10,7 @@ import com.example.hackaton_1_mejorada.Domain.limites.LimitesModelo;
 import com.example.hackaton_1_mejorada.Domain.solicitud.Solicitud;
 import com.example.hackaton_1_mejorada.Domain.solicitud.SolicitudRepository;
 import com.example.hackaton_1_mejorada.Domain.solicitud.solicitudEstado;
+import com.example.hackaton_1_mejorada.Domain.solicitud.solicitudModelo;
 import com.example.hackaton_1_mejorada.Domain.usuario.Usuario;
 import com.example.hackaton_1_mejorada.Domain.usuario.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,7 @@ public class OpenAIChatService {
         //Se agrega la solicitud
         solicitud.setConsulta(solicitudDTO.getConsulta());
         solicitud.setConsultante(usuario);
+        solicitud.setModelo_usado(solicitudModelo.GPT);
 
         solicitudRepository.save(solicitud);
 
