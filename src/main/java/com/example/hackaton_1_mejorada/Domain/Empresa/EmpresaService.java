@@ -31,7 +31,7 @@ public class EmpresaService {
         empresaExistente.setRUC(nuevaEmpresa.getRUC());
         empresaExistente.setFecha_de_afiliacion(nuevaEmpresa.getFecha_de_afiliacion());
         empresaExistente.setEstado(nuevaEmpresa.getEstado());
-        empresaExistente.setName_administrador(nuevaEmpresa.getName_administrador());
+        empresaExistente.setAdministrador(nuevaEmpresa.getAdministrador());
 
         return empresaRepository.save(empresaExistente);
     }

@@ -28,7 +28,9 @@ public class Empresa {
     @Enumerated(EnumType.STRING)
     private EmpresaRole estado;
 
-    private String  name_administrador;
+    @OneToOne
+    @JoinColumn(name = "administrador_id")
+    private Usuario  administrador;
 
     private Integer gastado=100;
 
