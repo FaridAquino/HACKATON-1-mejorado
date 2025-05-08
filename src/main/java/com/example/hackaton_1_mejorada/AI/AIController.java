@@ -6,7 +6,9 @@ import com.example.hackaton_1_mejorada.AI.ChatOpenAI.OpenAIChatService;
 import com.example.hackaton_1_mejorada.AI.DeepSeek.DeepSeekChatService;
 import com.example.hackaton_1_mejorada.AI.Llama.LlamaChatService;
 import com.example.hackaton_1_mejorada.Domain.solicitud.SolicitudService; // Incluir SolicitudService
+import com.example.hackaton_1_mejorada.Domain.solicitud.solicitudModelo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,34 +33,60 @@ public class AIController {
         this.solicitudService = solicitudService; // Asignar el servicio
     }
 
-    // Endpoint para consultas de chat (GPT)
-    @PostMapping("/chat")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public Solicitud promptChat(@RequestBody requestSolicitudDTO solicitudDTO, @RequestParam Long id) {
-        return openAIChatService.chat(solicitudDTO, id);
+
+        if (solicitudDTO.getModelo_usado()== solicitudModelo.DEEPSEEK){
+            return deepSeekChatService.chat(solicitudDTO, id);
+        }
+
+        if (solicitudDTO.getModelo_usado()== solicitudModelo.GPT){
+            return openAIChatService.chat(solicitudDTO, id);
+        }
+
+        return llamaChatService.chat(solicitudDTO, id);
+
     }
 
-    // Endpoint para solicitudes de completado de texto (DeepSeek)
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/completion")
     public Solicitud promptCompletion(@RequestBody requestSolicitudDTO solicitudDTO, @RequestParam Long id) {
-        return deepSeekChatService.chat(solicitudDTO, id);
-    }
+        if (solicitudDTO.getModelo_usado()== solicitudModelo.DEEPSEEK){
+            return deepSeekChatService.chat(solicitudDTO, id);
+        }
 
-    // Endpoint para consultas multimodales (Llama)
-    @PostMapping("/multimodal")
-    public Solicitud promptMultimodal(@RequestBody requestSolicitudDTO solicitudDTO, @RequestParam Long id) {
+        if (solicitudDTO.getModelo_usado()== solicitudModelo.GPT){
+            return openAIChatService.chat(solicitudDTO, id);
+        }
+
         return llamaChatService.chat(solicitudDTO, id);
     }
 
-    // Endpoint para obtener la lista de modelos disponibles para el usuario
-    @GetMapping("/models")
-    public String getAvailableModels() {
-        return "gpt, deepseek, llama"; // Aquí puedes devolver la lista de modelos disponibles dinámicamente si lo deseas
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/multimodal")
+    public Solicitud promptMultimodal(@RequestBody requestSolicitudDTO solicitudDTO, @RequestParam Long id) {
+        if (solicitudDTO.getModelo_usado()== solicitudModelo.DEEPSEEK){
+            return deepSeekChatService.chat(solicitudDTO, id);
+        }
+
+        if (solicitudDTO.getModelo_usado()== solicitudModelo.GPT){
+            return openAIChatService.chat(solicitudDTO, id);
+        }
+
+        return llamaChatService.chat(solicitudDTO, id);
     }
 
-    // Endpoint para obtener el historial de solicitudes del usuario
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/models")
+    public String getAvailableModels(@RequestParam Long id) {
+
+
+        return "gpt, deepseek, llama";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/history")
     public List<Solicitud> getUserHistory(@RequestParam Long userId) {
-        // Usar el servicio para acceder al historial
         return solicitudService.findByUserId(userId); // Utilizamos el servicio para acceder al historial
     }
 }

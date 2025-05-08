@@ -22,7 +22,7 @@ public class Solicitud {
     private solicitudEstado respuesta_estado; // Ejemplo: APROBADA, RECHAZADA
 
     @Enumerated(EnumType.STRING)
-    private solicitudModelo modelo_usado; // Almacena el modelo usado (GPT, DeepSeek, Llama)
+    private solicitudModelo modelo_usado;
 
     private Integer tokens_necesarios = 1; // Número de tokens necesarios para la consulta
 
