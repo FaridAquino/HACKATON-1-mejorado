@@ -6,7 +6,7 @@ Para facilitar la evaluación y prueba de la API, se ha organizado una colecció
 
 Esta carpeta contiene los endpoints relacionados con la gestión de empresas y las acciones de los administradores del sistema.
 
-![Image 1](Em)
+![Image 1](EmpresaYadministrador.png)
 
 * `POST postCompany`: Permite crear una nueva empresa.
 * `PATCH patchEstado`: Permite actualizar el estado de una empresa existente.
