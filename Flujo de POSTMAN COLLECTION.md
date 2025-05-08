@@ -6,7 +6,7 @@ Para facilitar la evaluación y prueba de la API, se ha organizado una colecció
 
 Esta carpeta contiene los endpoints relacionados con la gestión de empresas y las acciones de los administradores del sistema.
 
-![Image 1](EmpresaYadministrador.png)
+![Image 1](/assets/img/EmpresaYadministrador.png)
 
 * `POST postCompany`: Permite crear una nueva empresa.
 * `PATCH patchEstado`: Permite actualizar el estado de una empresa existente.
@@ -17,7 +17,7 @@ Esta carpeta contiene los endpoints relacionados con la gestión de empresas y l
 
 En esta carpeta se encuentran los endpoints para la gestión de restricciones aplicadas a nivel de empresa.
 
-![Image 1](ruta/a/la/imagen1.png) * `POST postRestriccion`: Permite crear una nueva restricción para una empresa.
+![Image 1](/assets/img/Restricciones_empresa.jpg) * `POST postRestriccion`: Permite crear una nueva restricción para una empresa.
 * `GET getRestricciones`: Permite obtener una lista de las restricciones aplicadas a una empresa.
 * `PUT putRestriccion`: Permite actualizar una restricción existente.
 * `DEL deleteRestriccion`: Permite eliminar una restricción.
@@ -26,7 +26,7 @@ En esta carpeta se encuentran los endpoints para la gestión de restricciones ap
 
 Esta sección agrupa los endpoints para la gestión de usuarios y la administración de límites de uso de los modelos de IA.
 
-![Image 1](ruta/a/la/imagen1.png) * `POST postUsuario`: Permite crear un nuevo usuario.
+![Image 1](/assets/img/Usuario_y_Limites.jpg) * `POST postUsuario`: Permite crear un nuevo usuario.
 * `GET getUsuarios`: Permite obtener una lista de todos los usuarios.
 * `GET getUsuarioID`: Permite obtener la información de un usuario específico mediante su ID.
 * `PUT putActualizar`: Permite actualizar la información de un usuario existente.
@@ -39,7 +39,7 @@ Esta sección agrupa los endpoints para la gestión de usuarios y la administrac
 
 Aquí se encuentran los endpoints para interactuar directamente con los diferentes modelos de Inteligencia Artificial disponibles.
 
-![Image 2](ruta/a/la/imagen2.png)
+![Image 2](/assets/img/ModelosIA+RegistrarRoles.jpg)
 
 * `POST postConsultaGPT`: Permite realizar consultas al modelo GPT.
 * `POST postConsultaLLAMA`: Permite realizar consultas al modelo LLAMA.
@@ -49,7 +49,7 @@ Aquí se encuentran los endpoints para interactuar directamente con los diferent
 
 Esta carpeta contiene los endpoints para la asignación de diferentes roles a los usuarios del sistema.
 
-![Image 2](ruta/a/la/imagen2.png) * `POST postSPARKYADMIN`: Permite registrar un usuario con el rol de administrador de Sparky.
+![Image 2](/assets/img/ModelosIA+RegistrarRoles.jpg) * `POST postSPARKYADMIN`: Permite registrar un usuario con el rol de administrador de Sparky.
 * `POST postCOMPANYADMIN`: Permite registrar un usuario con el rol de administrador de empresa.
 * `POST postROLEUSER`: Permite registrar un usuario con un rol de usuario genérico.
 
