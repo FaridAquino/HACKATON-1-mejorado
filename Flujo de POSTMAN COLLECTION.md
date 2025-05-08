@@ -53,4 +53,3 @@ Esta carpeta contiene los endpoints para la asignación de diferentes roles a lo
 * `POST postCOMPANYADMIN`: Permite registrar un usuario con el rol de administrador de empresa.
 * `POST postROLEUSER`: Permite registrar un usuario con un rol de usuario genérico.
 
-**Nota:** Asegúrate de reemplazar `ruta/a/la/imagen1.png` y `ruta/a/la/imagen2.png` con las rutas correctas donde se encuentren las imágenes en tu proyecto (`Z:\DBP\HACKATON 1 FINAL`).
